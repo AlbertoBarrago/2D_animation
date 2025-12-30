@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Canvas 2D Math Animations</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			background: #1a1a1a;
+			color: #fff;
+			font-family: monospace;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 20px;
+		}
+
+		canvas {
+			border: 2px solid #333;
+			background: #000;
+			margin: 20px 0;
+		}
+
+		.controls {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 20px;
+		}
+
+		button {
+			padding: 10px 20px;
+			background: #333;
+			color: #0f0;
+			border: 1px solid #0f0;
+			cursor: pointer;
+			font-family: monospace;
+			font-size: 14px;
+			transition: all 0.2s;
+		}
+
+		button:hover {
+			background: #0f0;
+			color: #000;
+		}
+
+		button.active {
+			background: #0f0;
+			color: #000;
+			font-weight: bold;
+		}
+
+		h1 {
+			margin-bottom: 10px;
+			color: #0f0;
+		}
+
+		.info {
+			margin: 10px 0;
+			color: #666;
+		}
+
+		.speed-control {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+			background: #222;
+			padding: 15px 25px;
+			border: 1px solid #333;
+			border-radius: 5px;
+		}
+
+		.speed-control label {
+			color: #0f0;
+			font-size: 14px;
+			min-width: 80px;
+		}
+
+		.speed-control input[type="range"] {
+			width: 200px;
+			height: 6px;
+			background: #333;
+			outline: none;
+			border-radius: 3px;
+			-webkit-appearance: none;
+		}
+
+		.speed-control input[type="range"]::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 18px;
+			height: 18px;
+			background: #0f0;
+			cursor: pointer;
+			border-radius: 50%;
+			transition: all 0.2s;
+		}
+
+		.speed-control input[type="range"]::-webkit-slider-thumb:hover {
+			background: #0ff;
+			transform: scale(1.2);
+		}
+
+		.speed-control input[type="range"]::-moz-range-thumb {
+			width: 18px;
+			height: 18px;
+			background: #0f0;
+			cursor: pointer;
+			border-radius: 50%;
+			border: none;
+			transition: all 0.2s;
+		}
+
+		.speed-control input[type="range"]::-moz-range-thumb:hover {
+			background: #0ff;
+			transform: scale(1.2);
+		}
+
+		.speed-value {
+			color: #0ff;
+			font-size: 16px;
+			font-weight: bold;
+			min-width: 40px;
+			text-align: right;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Canvas 2D Math Animations</h1>
+	<p class="info">Pure math, no WebGL, no libraries - just like Tsoding style</p>
+	<div class="controls">
+		<button data-animation="orbit">Orbit</button>
+		<button data-animation="lissajous">Lissajous</button>
+		<button data-animation="spiral">Spiral</button>
+		<button data-animation="wave">Wave</button>
+		<button data-animation="particles">Particles</button>
+		<button data-animation="breathing">Breathing Circle</button>
+		<button data-animation="mandala">Mandala</button>
+		<button data-animation="tunnel">Tunnel</button>
+	</div>
+	<div class="speed-control">
+		<label for="speedSlider">Speed:</label>
+		<input type="range" id="speedSlider" min="0.01" max="0.20" step="0.01" value="0.05">
+		<span class="speed-value" id="speedValue">0.1x</span>
+	</div>
+	<canvas id="canvas" width="800" height="600"></canvas>
+
+	<script src="./script.js"></script>
+</body>
+
+</html>
