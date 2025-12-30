@@ -8,6 +8,7 @@ const centerY = height / 2;
 let time = 0;
 let currentAnimation = 'orbit';
 let speed = 0.01;
+let matrixText = "A%!£L⁄%B”≈Z"
 
 // Clear canvas
 function clear() {
@@ -187,10 +188,55 @@ function tunnel() {
 		}
 	}
 }
+
+function matrixRain() {
+	if (!matrixRain.frameCount) matrixRain.frameCount = 0;
+	matrixRain.frameCount++;
+
+	if (matrixRain.frameCount % 3 !== 0) return;
+
+	ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+	ctx.fillRect(0, 0, width, height);
+
+	const fontSize = 20;
+	const columns = Math.floor(width / fontSize);
+
+	if (!matrixRain.drops) {
+		matrixRain.drops = [];
+		for (let i = 0; i < columns; i++) {
+			matrixRain.drops[i] = Math.random() * height;
+		}
+	}
+
+	ctx.fillStyle = '#0f0';
+	ctx.font = fontSize + 'px monospace';
+
+	for (let i = 0; i < matrixRain.drops.length; i++) {
+		const char = matrixText[Math.floor(Math.random() * matrixText.length)];
+		const x = i * fontSize;
+		const y = matrixRain.drops[i];
+
+		ctx.fillText(char, x, y);
+
+		if (y > height && Math.random() > 0.975) {
+			matrixRain.drops[i] = 0;
+		}
+
+		matrixRain.drops[i] += fontSize;
+	}
+}
+
 // Set animation
 function setAnimation(name) {
 	currentAnimation = name;
 	time = 0;
+
+	const speedControl = document.getElementById('speedControl');
+	if (name === 'matrix') {
+		speedControl.style.display = 'none';
+	} else {
+		speedControl.style.display = 'block';
+	}
 }
 
 // Update speed from slider
@@ -211,6 +257,7 @@ function animate() {
 		case 'breathing': breathing(); break;
 		case 'mandala': mandala(); break;
 		case 'tunnel': tunnel(); break;
+		case 'matrix': matrixRain(); break;
 	}
 
 	time += speed;
@@ -222,7 +269,6 @@ document.querySelectorAll('.controls button').forEach(button => {
 	button.addEventListener('click', function() {
 		setAnimation(this.dataset.animation);
 
-		// Update active button
 		document.querySelectorAll('.controls button').forEach(btn => {
 			btn.classList.remove('active');
 		});
